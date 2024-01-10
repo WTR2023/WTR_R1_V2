@@ -209,7 +209,7 @@ void Chassis_Task(void *argument)
 {
     for (;;) {
         float mvx, mvy, mwc;
-        mvx = -(float)((raw_data.ch1 - 1024) * 66) / 4000.0;
+        mvx = (float)((raw_data.ch1 - 1024) * 66) / 4000.0;
         mvy = (float)((raw_data.ch0 - 1024) * 66) / 4000.0;
         mwc = 0;
         Inverse_kinematic_equation(mvx, mvy, mwc, &v_1, &v_2, &v_3, &v_4);

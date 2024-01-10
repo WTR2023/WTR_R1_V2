@@ -17,10 +17,10 @@ int32_t v_1, v_2, v_3, v_4; // 底盘速度
 void Inverse_kinematic_equation(float vx, float vy, float wc, int32_t *_v_1, int32_t *_v_2, int32_t *_v_3, int32_t *_v_4)
 {
     float v1, v2, v3, v4;
-    v1 = (float)((sqrt(2) * vx / 2 + sqrt(2) * vy / 2 - wc * r) / R);
-    v2 = (float)((sqrt(2) * vx / 2 - sqrt(2) * vy / 2 - wc * r) / R);
-    v3 = (float)((-sqrt(2) * vx / 2 - sqrt(2) * vy / 2 - wc * r) / R);
-    v4 = (float)((-sqrt(2) * vx / 2 + sqrt(2) * vy / 2 - wc * r) / R);
+    v1 = (float)((sqrt(2) * vx / 2 - sqrt(2) * vy / 2 - wc * r) / R);
+    v2 = (float)((-sqrt(2) * vx / 2 - sqrt(2) * vy / 2 - wc * r) / R);
+    v3 = (float)((-sqrt(2) * vx / 2 + sqrt(2) * vy / 2 - wc * r) / R);
+    v4 = (float)((sqrt(2) * vx / 2 + sqrt(2) * vy / 2 - wc * r) / R);
 
     *_v_1 = (int32_t)(v1 * 60.0) / (2 * PI);
     *_v_2 = (int32_t)(v2 * 60.0) / (2 * PI);
