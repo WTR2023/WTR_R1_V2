@@ -1,5 +1,7 @@
 #include "wtr_chassis.h"
 
+/*****************************************************************************/
+
 int32_t v_1, v_2, v_3, v_4; // 底盘速度
 osThreadId_t can_message_TaskHandle;
 const osThreadAttr_t can_message_Task_attributes = {
@@ -8,6 +10,7 @@ const osThreadAttr_t can_message_Task_attributes = {
     .priority   = (osPriority_t)osPriorityHigh1,
 };
 
+/*****************************************************************************/
 /**
  * @brief   底盘初始化
  */
@@ -25,6 +28,7 @@ void Chassis_Init(void)
     hDJI[6].motorType = M3508; // 6号电机，发射左摩擦轮
     hDJI[7].motorType = M3508; // 7号电机，发射右摩擦轮
     DJI_Init();
+    Chassis_PID_Init(&chassis_pid, 0.1, 0.0, 0.0);
 }
 
 /**
@@ -73,13 +77,4 @@ void Inverse_kinematic_equation(float vx, float vy, float wc, int32_t *_v_1, int
     *_v_2 = (int32_t)(v2 * 60.0) / (2 * PI);
     *_v_3 = (int32_t)(v3 * 60.0) / (2 * PI);
     *_v_4 = (int32_t)(v4 * 60.0) / (2 * PI);
-}
-/**
- * @brief   正运动学方程，返回轮式里程计的速度数据
- * @param   vx          底盘前向速度，单位m/s
- * @param   vy          底盘左横向速度，单位m/s
- * @param   wc          转向角速度，使用弧度，单位rad/s
- */
-void Forward_kinematic_equation(float *vx, float *vy, float *wc)
-{
 }

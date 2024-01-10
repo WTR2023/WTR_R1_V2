@@ -20,6 +20,7 @@
 #include "chassis_perception.h"
 #include "chassis_callback.h"
 #include "chassis_debug.h"
+#include "chassis_pid.h"
 #include "wtr_chassis.h"
 /*******************状态机和应用***********************/
 #include "wtr_fire_ball.h"

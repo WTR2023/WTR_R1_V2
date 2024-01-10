@@ -1,5 +1,7 @@
 #include "chassis_remotectl.h"
 
+/****************************变量定义*******************************/
+
 osThreadId_t remotectl_TaskHandle;
 const osThreadAttr_t remotectl_Task_attributes = {
     .name       = "remotectl_Task",
@@ -7,6 +9,7 @@ const osThreadAttr_t remotectl_Task_attributes = {
     .priority   = (osPriority_t)osPriorityNormal,
 };
 
+/******************************************************************/
 /**
  * @brief   遥控器初始化
  */
@@ -33,7 +36,8 @@ void Chassis_RemoteCtl_Task(void *argument)
         float mvx, mvy, mwc;
         mvx = -(float)((as69_data.ch1 - 1024) * 66) / 4000.0;
         mvy = (float)((as69_data.ch0 - 1024) * 66) / 4000.0;
-        mwc = 0;
+        chassis_pid.SetPoint = 0.0;
+        mwc = Chassis_PID_Calc(&chassis_pid, OPS_Data.z_angle);
         Inverse_kinematic_equation(mvx, mvy, mwc, &v_1, &v_2, &v_3, &v_4);
         osDelay(5);
     }
