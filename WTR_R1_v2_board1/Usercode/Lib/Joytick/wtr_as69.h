@@ -6,8 +6,7 @@
 #ifndef __AS69_H
 #define __AS69_H
 
-#include "usart.h"
-#include "stm32f4xx.h"
+#include "chassis_start.h"
 
 /********************** 结构体定义 ***************************/
 typedef struct
@@ -22,7 +21,8 @@ typedef struct
 } Remote_t;
 
 /************************ 用户变量 ****************************/
-extern Remote_t raw_data;
+
+extern Remote_t as69_data;
 extern uint8_t as69_buffer[18];
 
 /************************* 用户函数 *****************************/

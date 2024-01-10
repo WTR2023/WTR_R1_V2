@@ -4,10 +4,10 @@
   "dependenceList": [],
   "srcDirs": [
     ".eide/deps",
-    "BSP",
     "Core",
     "Drivers",
-    "Middlewares"
+    "Middlewares",
+    "Usercode"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
@@ -71,7 +71,19 @@
           "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F",
           "Drivers/CMSIS/Device/ST/STM32F4xx/Include",
           "Drivers/CMSIS/Include",
-          "BSP"
+          "Usercode/APP/FireBall",
+          "Usercode/APP/Servo",
+          "Usercode/Chassis/Chassis",
+          "Usercode/Chassis/Chassis_Start",
+          "Usercode/Chassis/Chassis_Config",
+          "Usercode/Chassis/Chassis_RemoteCtl",
+          "Usercode/Chassis/Chassis_Perception",
+          "Usercode/Chassis/Chassis_Callback",
+          "Usercode/Chassis/Chassis_Debug",
+          "Usercode/Lib/DJI",
+          "Usercode/Lib/Joytick",
+          "Usercode/Lib/OPS",
+          "Usercode/Lib/Retarget"
         ],
         "libList": [],
         "sourceDirList": [],
