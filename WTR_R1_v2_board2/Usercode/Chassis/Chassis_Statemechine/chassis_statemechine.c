@@ -39,7 +39,7 @@ void Right_Grip_Seed_Task(void *argument)
     for (;;) {
         switch (right_grip_seed_state) {
             case Grip_Ready: // 1. 取苗准备
-                Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI - 0.07, 0.11, 0.05);
+                Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI - 0.2, 0.11, 0.05);
                 land_angle = -2;
                 while (hDJI[0].AxisData.AxisAngle_inDegree < -3.0f) {
                     osDelay(1);
@@ -70,10 +70,10 @@ void Right_Grip_Seed_Task(void *argument)
                 right_grip_seed_state = Grip_Deposit;
                 break;
             case Grip_Deposit: // 3. 苗的存储
-                Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right + 0.23, 0.11, 0.05);
+                Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right + 0.2, 0.11, 0.05);
                 osDelay(2000);
                 Right_Servo_Open();
-                osDelay(100);
+                osDelay(2000);
                 right_grip_seed_state = Grip_Ready;
                 break;
             default:

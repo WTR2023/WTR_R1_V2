@@ -21,6 +21,7 @@ void Debug_TaskStart(void)
 void Debug_Task(void *argument)
 {
     for (;;) {
+        printf("%d\r\n", (int)(chassis_message.grip_message));
         osDelay(200);
     }
 }

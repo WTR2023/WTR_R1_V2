@@ -20,6 +20,7 @@
 #include "chassis_perception.h"
 #include "chassis_statemechine.h"
 #include "chassis_callback.h"
+#include "chassis_message.h"
 #include "chassis_debug.h"
 #include "chassis_pid.h"
 #include "wtr_chassis.h"

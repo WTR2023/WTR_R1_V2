@@ -8,12 +8,13 @@ typedef struct Chassis_Message {
 } Chassis_Message;
 
 /************************ 用户定义 ***************************/
-#define BOARD_MESSAGE_UART_HANDLE huart8 // 串口选项
-#define BOARD_MESSAGE_UART        UART8  // 串口选项
+#define BOARD_MESSAGE_UART_HANDLE huart7 // 串口选项
+#define BOARD_MESSAGE_UART        UART7  // 串口选项
 
 extern uint8_t board_message_buffer[6];
 extern Chassis_Message chassis_message;
 
 int Board_Message_Decode(void);
+void Board_Message_Init(void);
 
 #endif

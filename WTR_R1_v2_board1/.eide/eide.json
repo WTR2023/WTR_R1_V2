@@ -75,6 +75,7 @@
           "Usercode/APP/Servo",
           "Usercode/Chassis/Chassis",
           "Usercode/Chassis/Chassis_Start",
+          "Usercode/Chassis/Chassis_Message",
           "Usercode/Chassis/Chassis_Config",
           "Usercode/Chassis/Chassis_RemoteCtl",
           "Usercode/Chassis/Chassis_Perception",

@@ -5,7 +5,7 @@ osThreadId_t can_message_TaskHandle;
 const osThreadAttr_t can_message_Task_attributes = {
     .name       = "can_message_Task",
     .stack_size = 128 * 4,
-    .priority   = (osPriority_t)osPriorityHigh1,
+    .priority   = (osPriority_t)osPriorityNormal1,
 };
 /************************************************************************/
 /**
@@ -36,5 +36,6 @@ void CAN_Message_Task(void *argument)
     for (;;) {
         positionServo(land_angle, &hDJI[0]);
         CanTransmit_DJI_1234(hDJI[0].speedPID.output, 0, 0, 0);
+        osDelay(5);
     }
 }
