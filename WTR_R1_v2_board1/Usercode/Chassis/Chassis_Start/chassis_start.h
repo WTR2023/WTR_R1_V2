@@ -18,6 +18,7 @@
 #include "chassis_config.h"
 #include "chassis_remotectl.h"
 #include "chassis_perception.h"
+#include "chassis_statemechine.h"
 #include "chassis_callback.h"
 #include "chassis_debug.h"
 #include "chassis_pid.h"

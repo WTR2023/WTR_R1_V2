@@ -81,6 +81,7 @@
           "Usercode/Chassis/Chassis_Callback",
           "Usercode/Chassis/Chassis_Debug",
           "Usercode/Chassis/Chassis_PID",
+          "Usercode/Chassis/Chassis_StateMechine",
           "Usercode/Lib/DJI",
           "Usercode/Lib/Joytick",
           "Usercode/Lib/OPS",

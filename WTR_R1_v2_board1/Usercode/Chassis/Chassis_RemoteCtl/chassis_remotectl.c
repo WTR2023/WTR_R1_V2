@@ -34,8 +34,8 @@ void Chassis_RemoteCtl_Task(void *argument)
 {
     for (;;) {
         float mvx, mvy, mwc;
-        mvx = -(float)((as69_data.ch1 - 1024) * 66) / 4000.0;
-        mvy = (float)((as69_data.ch0 - 1024) * 66) / 4000.0;
+        mvx = -(float)((as69_data.ch1 - 1024) * 200) / 4000.0;
+        mvy = (float)((as69_data.ch0 - 1024) * 200) / 4000.0;
         chassis_pid.SetPoint = 0.0;
         mwc = Chassis_PID_Calc(&chassis_pid, OPS_Data.z_angle);
         Inverse_kinematic_equation(mvx, mvy, mwc, &v_1, &v_2, &v_3, &v_4);

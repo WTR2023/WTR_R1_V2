@@ -103,7 +103,6 @@ HAL_StatusTypeDef DJI_CanMsgDecode(uint32_t Stdid, uint8_t *fdbData)
 #if (STM32F427xx)
 /**
  * @brief	DJI电机CAN发送函数，电机ID 1/2/3/4
- * @param	hcanx	CAN句柄
  * @param	cmx_iq	发送值，通常为最内环控制的输出值
  */
 void CanTransmit_DJI_1234(int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_t cm4_iq)
@@ -128,7 +127,6 @@ void CanTransmit_DJI_1234(int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_
 
 /**
  * @brief	DJI电机CAN发送函数，电机ID 5/6/7/8
- * @param	hcanx	CAN句柄
  * @param	cmx_iq	发送值，通常为最内环控制的输出值
  */
 void CanTransmit_DJI_5678(int16_t cm5_iq, int16_t cm6_iq, int16_t cm7_iq, int16_t cm8_iq)
