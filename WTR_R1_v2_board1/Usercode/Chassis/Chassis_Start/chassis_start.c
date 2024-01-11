@@ -17,7 +17,7 @@ void StartDefaultTask(void *argument)
     /***************************线程开启*************************/
     Chassis_CAN_Message_TaskStart(); // CAN发送线程
     Chassis_Remotectl_TaskStart();   // 遥控器线程
-    // Chassis_State_Mechine_Start();   // 状态机线程
+    Chassis_State_Mechine_Start();   // 状态机线程
     Debug_TaskStart();               // 调试线程
     for (;;) {
         osDelay(1000);

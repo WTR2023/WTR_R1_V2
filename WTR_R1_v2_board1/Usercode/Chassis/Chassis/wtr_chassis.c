@@ -53,7 +53,7 @@ void CAN_Message_Task(void *argument)
         positionServo(rail_angle, &hDJI[5]);
         speedServo(5000, &hDJI[6]);
         speedServo(-5000, &hDJI[7]);
-        CanTransmit_DJI_1234(0, 0, 0, 0);
+        CanTransmit_DJI_1234(hDJI[0].speedPID.output, hDJI[1].speedPID.output, hDJI[2].speedPID.output, hDJI[3].speedPID.output);
         CanTransmit_DJI_5678(hDJI[4].speedPID.output, hDJI[5].speedPID.output, 0, 0);
         osDelay(5);
     }

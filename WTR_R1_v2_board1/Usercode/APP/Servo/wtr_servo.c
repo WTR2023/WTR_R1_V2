@@ -24,7 +24,7 @@ void Servo_Out(void)
  */
 void Servo_Grip(void)
 {
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 940);
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1250);
 }
 
 /**
@@ -40,7 +40,7 @@ void Servo_Reset(void)
  */
 void Servo_Init(void)
 {
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // 夹爪中央舵机,CCR 700 张开,CCR 940 夹取
+    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1); // 夹爪中央舵机,CCR 700 张开,CCR 1250 夹取
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2); // 夹爪右舵机
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3); // 夹爪左舵机,CCR 之和为 1750
     Servo_Reset();
