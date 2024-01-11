@@ -9,17 +9,17 @@ void Servo_Init(void)
 }
 
 /**
- * @brief   夹爪张开
+ * @brief   右侧夹爪张开
 */
-void Servo_Open(void)
+void Right_Servo_Open(void)
 {
     __HAL_TIM_SET_COMPARE(Right_Left_Gripper_Servo_Timer_Handle, Right_Left_Gripper_Servo_Timer_Channel, 500);
 }
 
 /**
- * @brief   夹爪抓取
+ * @brief   右侧夹爪抓取
 */
-void Servo_Grip(void)
+void Right_Servo_Grip(void)
 {
     __HAL_TIM_SET_COMPARE(Right_Left_Gripper_Servo_Timer_Handle, Right_Left_Gripper_Servo_Timer_Channel, 750);
 }

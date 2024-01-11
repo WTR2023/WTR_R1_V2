@@ -27,10 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "wtr_servo.h"
-#include "wtr_can.h"
-#include "DJI.h"
-#include "Unitree_user.h"
+#include "chassis.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

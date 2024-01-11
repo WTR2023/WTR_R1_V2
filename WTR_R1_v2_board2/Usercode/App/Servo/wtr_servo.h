@@ -13,7 +13,7 @@
 #define Right_Left_Gripper_Servo_Timer_Channel  TIM_CHANNEL_1
 
 void Servo_Init(void);
-void Servo_Open(void);
-void Servo_Grip(void);
+void Right_Servo_Open(void);
+void Right_Servo_Grip(void);
 
 #endif

@@ -26,6 +26,8 @@ HAL_StatusTypeDef Unitree_UART_tranANDrev(UnitreeMotor *MotorInstance, unsigned 
                                           float Pos, float K_P, float K_W);
 HAL_StatusTypeDef Unitree_Encoder_Autoclibrating(UnitreeMotor *MotorInstance);
 
+void Unitree_User_Init(void);
+
 #endif // UNITREE_M8010_UNITREE_USER_H
 
 #ifndef UNITREE_M8010_UNITREE_USER_H_
