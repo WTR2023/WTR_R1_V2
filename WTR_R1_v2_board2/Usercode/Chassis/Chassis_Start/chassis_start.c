@@ -13,6 +13,7 @@ void StartDefaultTask(void *argument)
     Servo_Init();         // 舵机初始化
     Chassis_Init();       // DJI 电机初始化
     Board_Message_Init(); // 板间通讯初始化
+    Right_Servo_Deposit_Close();
     osDelay(2000);
     /***************************线程开启*************************/
     Debug_TaskStart();               // 调试线程

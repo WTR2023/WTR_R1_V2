@@ -9,7 +9,8 @@ enum Grip_Seed_State{
     Grip_Deposit,
 };
 
-extern int land_angle;
+extern int right_land_angle;
+extern int right_deposit_angle;
 
 void Grip_Seed_Task_Start(void);
 void Chassis_State_Mechine_Start(void);
