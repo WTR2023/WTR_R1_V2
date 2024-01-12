@@ -15,7 +15,7 @@ void Servo_Init(void)
  */
 void Right_Servo_Open(void)
 {
-    __HAL_TIM_SET_COMPARE(Right_Left_Gripper_Servo_Timer_Handle, Right_Left_Gripper_Servo_Timer_Channel, 600);
+    __HAL_TIM_SET_COMPARE(Right_Left_Gripper_Servo_Timer_Handle, Right_Left_Gripper_Servo_Timer_Channel, 550);
 }
 
 /**
@@ -31,7 +31,7 @@ void Right_Servo_Grip(void)
 */
 void Right_Servo_Buffle_Open(void)
 {
-    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 750);
+    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 1100);
 }
 
 /**
@@ -39,7 +39,7 @@ void Right_Servo_Buffle_Open(void)
 */
 void Right_Servo_Buffle_Close(void)
 {
-    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 750);
+    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 600);
 }
 
 /**
