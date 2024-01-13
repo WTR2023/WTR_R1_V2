@@ -69,8 +69,8 @@ void Right_Grip_Seed_Task(void *argument)
             case Grip: // 2. 取苗并准备存储
                 Right_Servo_Grip();
                 osDelay(100);
-                right_land_angle = -715;
-                while (hDJI[0].AxisData.AxisAngle_inDegree > -713.0f) {
+                right_land_angle = -675;
+                while (hDJI[0].AxisData.AxisAngle_inDegree > -673.0f) {
                     osDelay(1);
                 }
                 osDelay(300);
@@ -87,7 +87,7 @@ void Right_Grip_Seed_Task(void *argument)
                 break;
             case Grip_Deposit: // 3. 苗的存储
                 if (right_seed_count < 4) {
-                    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.3), 0.1                                                                                            , 0.05);
+                    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.3), 0.1, 0.05);
                     Right_Servo_Buffle_Close();
                 } else {
                     Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.4), 0.1, 0.05);
@@ -111,7 +111,6 @@ void Right_Grip_Seed_Task(void *argument)
             default:
                 break;
         }
-
         osDelay(2);
     }
 }
