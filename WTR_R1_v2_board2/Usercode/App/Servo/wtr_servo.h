@@ -25,6 +25,7 @@ void Right_Servo_Open(void);
 void Right_Servo_Grip(void);
 void Right_Servo_Buffle_Open(void);
 void Right_Servo_Buffle_Close(void);
+void Right_Servo_Buffle_HalfClose(void);
 void Right_Servo_Deposit_Open(void);
 void Right_Servo_Deposit_Close(void);
 

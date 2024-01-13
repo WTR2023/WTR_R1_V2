@@ -124,4 +124,5 @@ void Unitree_User_Init(void)
     Unitree_UART_tranANDrev(unitree_motor_right, 0, 0, 0, 0, 0, 0, 0);
     osDelay(2000);
     unitree_offset_right = unitree_motor_right->data.Pos;
+    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI - 0.1, 0.17, 0.08);
 }

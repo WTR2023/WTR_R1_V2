@@ -8,6 +8,7 @@ void Servo_Init(void)
     HAL_TIM_PWM_Start(Right_Left_Gripper_Servo_Timer_Handle, Right_Left_Gripper_Servo_Timer_Channel);
     HAL_TIM_PWM_Start(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel);
     HAL_TIM_PWM_Start(Right_Deposit_Servo_Timer_Handle, Right_Deposit_Servo_Timer_Channel);
+    Right_Servo_Open();
 }
 
 /**
@@ -35,6 +36,14 @@ void Right_Servo_Buffle_Open(void)
 }
 
 /**
+ * @brief   挡板半关闭
+*/
+void Right_Servo_Buffle_HalfClose(void)
+{
+    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 820);
+}
+
+/**
  * @brief   挡板关闭
 */
 void Right_Servo_Buffle_Close(void)
@@ -47,7 +56,7 @@ void Right_Servo_Buffle_Close(void)
 */
 void Right_Servo_Deposit_Open(void)
 {
-    __HAL_TIM_SET_COMPARE(Right_Deposit_Servo_Timer_Handle, Right_Deposit_Servo_Timer_Channel, 580);
+    __HAL_TIM_SET_COMPARE(Right_Deposit_Servo_Timer_Handle, Right_Deposit_Servo_Timer_Channel, 520);
 }
 
 /**
