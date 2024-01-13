@@ -21,10 +21,10 @@ enum Plant_Seed_State right_plant_seed_state;
 
 const int deposit_point[5] = {
     0,
-    270,
-    540,
-    810,
-    1010,
+    370,
+    640,
+    910,
+    1120,
 };                           // 右侧挡板标记点
 static int right_seed_count; // 右侧存苗数量
 int right_land_angle;        // 右侧升降电机
@@ -89,9 +89,6 @@ void Right_Grip_Seed_Task(void *argument)
                 while (hDJI[0].AxisData.AxisAngle_inDegree > -673.0f) {
                     osDelay(1);
                 }
-                if (right_seed_count >= 4) {
-                    Right_Servo_Buffle_HalfClose();
-                }
                 osDelay(300);
                 if (chassis_message.direction_message == 0xAA && chassis_message.grip_resolve_message == 0xAA) {
                     switch (chassis_message.grip_message) {
@@ -111,9 +108,9 @@ void Right_Grip_Seed_Task(void *argument)
                 } else {
                     Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.4), 0.09, 0.05);
                 }
-                osDelay(6000);
+                osDelay(2500);
                 Right_Servo_Open();
-                osDelay(2000);
+                osDelay(1000);
                 Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI - 0.1, 0.09, 0.05);
                 osDelay(2000);
                 if (right_seed_count < 4) {
@@ -168,16 +165,6 @@ void Right_Plant_Seed_Task(void *argument)
             case Plant_Deposit:
                 if (right_seed_count >= 4) // 放下苗后，存储苗区有超过四个苗
                 {
-                    Right_Servo_Buffle_HalfClose();
-                    osDelay(500);
-                    right_deposit_angle = 150;
-                    while (hDJI[1].AxisData.AxisAngle_inDegree < 148.0f) {
-                        osDelay(1);
-                    }
-                    right_deposit_angle = 0;
-                    while (hDJI[1].AxisData.AxisAngle_inDegree > 62.0f) {
-                        osDelay(1);
-                    }
                     Right_Servo_Buffle_Close();
                     osDelay(500);
                     right_deposit_angle = deposit_point[1];

@@ -35,13 +35,6 @@ void Right_Servo_Buffle_Open(void)
     __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 1100);
 }
 
-/**
- * @brief   挡板半关闭
-*/
-void Right_Servo_Buffle_HalfClose(void)
-{
-    __HAL_TIM_SET_COMPARE(Right_Baffle_Servo_Timer_Handle, Right_Baffle_Servo_Timer_Channel, 820);
-}
 
 /**
  * @brief   挡板关闭
