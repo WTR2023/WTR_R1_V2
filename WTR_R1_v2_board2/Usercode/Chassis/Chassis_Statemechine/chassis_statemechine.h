@@ -27,6 +27,7 @@ extern enum Chassis_State chassis_mode;
 void Grip_Seed_Task_Start(void);
 void Chassis_State_Mechine_Start(void);
 
+void Chassis_State_mechine_Task(void *argument);
 void Right_Grip_Seed_Task(void *argument);
 void Right_Plant_Seed_Task(void *argument);
 
