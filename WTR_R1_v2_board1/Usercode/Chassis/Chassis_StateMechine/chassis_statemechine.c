@@ -1,6 +1,13 @@
 #include "chassis_statemechine.h"
 
 /***********************************************************/
+osThreadId_t State_mechine_TaskHandle;
+const osThreadAttr_t State_mechine_Task_attributes = {
+    .name       = "State_mechine_Task",
+    .stack_size = 128 * 4,
+    .priority   = (osPriority_t)osPriorityNormal,
+};
+
 osThreadId_t Fire_Ball_TaskHandle;
 const osThreadAttr_t Fire_Ball_Task_attributes = {
     .name       = "Fire_Ball_Task",
@@ -8,9 +15,12 @@ const osThreadAttr_t Fire_Ball_Task_attributes = {
     .priority   = (osPriority_t)osPriorityNormal,
 };
 
+enum Chassis_State chassis_mode; // 底盘总控制线程
 enum Fire_State fire_state;
+
 int arm_angle  = 0;
 int rail_angle = 0;
+int friction_speed = 0;
 
 /***********************************************************/
 
@@ -28,7 +38,30 @@ void Fire_Ball_Task_Start(void)
  */
 void Chassis_State_Mechine_Start(void)
 {
+    chassis_mode = Seed_Mode;
     Fire_Ball_Task_Start();
+    State_mechine_TaskHandle = osThreadNew(Chassis_State_mechine_Task, NULL, &State_mechine_Task_attributes);
+}
+
+/**
+ * @brief   总控制状态机
+ */
+void Chassis_State_mechine_Task(void *argument)
+{
+    for (;;) {
+        if (chassis_mode == Seed_Mode) {
+            while(fire_state != Fire_Ready)
+            {
+                osDelay(1);
+            }
+            friction_speed = 0;
+            osThreadSuspend(Fire_Ball_TaskHandle); // 挂起射球线程
+        } else if (chassis_mode == Ball_Mode) {
+            osThreadResume(Fire_Ball_TaskHandle); // 解挂射球线程
+            friction_speed = 5000;
+        }
+        osDelay(2);
+    }
 }
 
 /**

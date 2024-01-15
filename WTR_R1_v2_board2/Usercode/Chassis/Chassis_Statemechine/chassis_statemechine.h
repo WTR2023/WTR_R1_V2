@@ -15,8 +15,14 @@ enum Plant_Seed_State {
     Plant_Ready,
 };
 
+enum Chassis_State {
+    Seed_Mode,
+    Ball_Mode,
+};
+
 extern int right_land_angle;
 extern int right_deposit_angle;
+extern enum Chassis_State chassis_mode;
 
 void Grip_Seed_Task_Start(void);
 void Chassis_State_Mechine_Start(void);

@@ -9,7 +9,7 @@ const osThreadAttr_t chassis_message_Task_attributes = {
     .priority   = (osPriority_t)osPriorityNormal,
 };
 
-uint8_t chassis_message_buffer[7] = {0};
+uint8_t chassis_message_buffer[8] = {0};
 
 /**
  * @brief   板间通讯线程开启
@@ -18,8 +18,8 @@ void Chassis_Message_TaskStart(void)
 {
     chassis_message_buffer[0]  = 0x0B;
     chassis_message_buffer[1]  = 0x0C;
-    chassis_message_buffer[5]  = 0x0C;
-    chassis_message_buffer[6]  = 0x0B;
+    chassis_message_buffer[6]  = 0x0C;
+    chassis_message_buffer[7]  = 0x0B;
     chassis_message_TaskHandle = osThreadNew(Chassis_Message_Task, NULL, &chassis_message_Task_attributes);
 }
 
@@ -44,7 +44,16 @@ void Chassis_Message_Task(void *argument)
         } else if (as69_data.ch3 < 694) {
             chassis_message_buffer[4] = 0xBB; // 放苗
         }
-        HAL_UART_Transmit(&huart7, chassis_message_buffer, 7, 0xFF);
+        if (as69_data.wheel > 1354) {
+            chassis_message_buffer[5] = 0xAA; // 苗
+            chassis_mode = Seed_Mode;
+        } else if (as69_data.wheel > 694 && as69_data.wheel < 1354) {
+            chassis_message_buffer[5] = 0x00;
+        } else if (as69_data.wheel < 694) {
+            chassis_message_buffer[5] = 0xBB; // 球
+            chassis_mode = Ball_Mode;
+        }
+        HAL_UART_Transmit(&huart7, chassis_message_buffer, 8, 0xFF);
         osDelay(5);
     }
 }

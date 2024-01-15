@@ -3,7 +3,7 @@
 
 #include "chassis_start.h"
 
-extern uint8_t chassis_message_buffer[7];
+extern uint8_t chassis_message_buffer[8];
 
 void Chassis_Message_TaskStart(void);
 void Chassis_Message_Task(void *argument);

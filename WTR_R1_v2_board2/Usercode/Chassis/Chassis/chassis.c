@@ -16,8 +16,10 @@ void Chassis_Init(void)
     can1.CAN_Rx_Filter_Init();
     can1.CAN_Start();
     can1.CAN_Interrupt_Init();
-    hDJI[0].motorType = M2006;  // 右侧取苗爪升降电机
-    hDJI[1].motorType = M2006;  // 右侧存储机构运动电机
+    hDJI[0].motorType = M2006; // 右侧取苗爪升降电机
+    hDJI[1].motorType = M2006; // 右侧存储机构运动电机
+    hDJI[2].motorType = M2006; // 左侧取苗爪升降电机
+    hDJI[3].motorType = M2006; // 左侧存储机构运动电机
     DJI_Init();
 }
 
@@ -37,6 +39,7 @@ void CAN_Message_Task(void *argument)
     for (;;) {
         positionServo(right_land_angle, &hDJI[0]);
         positionServo(right_deposit_angle, &hDJI[1]);
+        positionServo(-695, &hDJI[2]);
         CanTransmit_DJI_1234(hDJI[0].speedPID.output, hDJI[1].speedPID.output, 0, 0);
         osDelay(5);
     }

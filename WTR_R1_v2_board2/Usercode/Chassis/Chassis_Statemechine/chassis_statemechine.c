@@ -1,6 +1,12 @@
 #include "chassis_statemechine.h"
 
 /*********************************************************************/
+osThreadId_t State_mechine_TaskHandle;
+const osThreadAttr_t State_mechine_Task_attributes = {
+    .name       = "State_mechine_Task",
+    .stack_size = 128 * 4,
+    .priority   = (osPriority_t)osPriorityNormal,
+};
 
 osThreadId_t Right_Grip_Seed_TaskHandle;
 const osThreadAttr_t Right_Grip_Seed_Task_attributes = {
@@ -16,6 +22,7 @@ const osThreadAttr_t Right_Plant_Seed_Task_attributes = {
     .priority   = (osPriority_t)osPriorityNormal,
 };
 
+enum Chassis_State chassis_mode; // 底盘总控制线程
 enum Grip_Seed_State right_grip_seed_state;
 enum Plant_Seed_State right_plant_seed_state;
 
@@ -43,12 +50,41 @@ void Grip_Seed_Task_Start(void)
     Right_Plant_Seed_TaskHandle = osThreadNew(Right_Plant_Seed_Task, NULL, &Right_Plant_Seed_Task_attributes);
     Right_Grip_Seed_TaskHandle  = osThreadNew(Right_Grip_Seed_Task, NULL, &Right_Grip_Seed_Task_attributes);
 }
+
 /**
  * @brief   总状态机线程开启
  */
 void Chassis_State_Mechine_Start(void)
 {
+    chassis_mode = Seed_Mode;
     Grip_Seed_Task_Start();
+    State_mechine_TaskHandle = osThreadNew(Chassis_State_mechine_Task, NULL, &State_mechine_Task_attributes);
+}
+
+/**
+ * @brief   总控制状态机
+ */
+void Chassis_State_mechine_Task()
+{
+    for (;;) {
+        if (chassis_mode == Seed_Mode) {
+            osThreadResume(Right_Grip_Seed_TaskHandle);  // 解挂取苗线程
+            osThreadResume(Right_Plant_Seed_TaskHandle); // 解挂放苗线程
+        } else if (chassis_message == Ball_Mode) {
+            osThreadSuspend(Right_Grip_Seed_TaskHandle);                                                          // 挂起取苗线程
+            osThreadSuspend(Right_Plant_Seed_TaskHandle);                                                         // 挂起放苗线程
+            Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI / 3, 0.09, 0.05); // 机械臂收缩至不干涉位置
+            Right_Servo_Open();                                                                                   // 机械爪张开
+            Right_Servo_Buffle_Open();                                                                            // 挡板张开
+            Right_Servo_Deposit_Close();                                                                          // 放苗板关起
+            right_land_angle    = -2;                                                                             // 机械臂下降
+            right_deposit_angle = 0;                                                                              // 挡板复位
+            while (hDJI[0].AxisData.AxisAngle_inDegree < -3.0f || hDJI[1].AxisData.AxisAngle_inDegree > 3.0f) {
+                osDelay(1);
+            }
+        }
+        osDelay(2);
+    }
 }
 
 /**

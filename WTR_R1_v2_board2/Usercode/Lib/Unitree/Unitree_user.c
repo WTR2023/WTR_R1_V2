@@ -41,7 +41,9 @@
 #endif
 /**************************************变量定义**********************************************/
 UnitreeMotor *unitree_motor_right;
+UnitreeMotor *unitree_motor_left;
 float unitree_offset_right;
+float unitree_offset_left;
 /**************************************用户函数**********************************************/
 UnitreeMotor *Unitree_Create_Motor()
 {
@@ -56,9 +58,9 @@ UnitreeMotor *Unitree_Create_Motor()
  * 电机初始化自检
  * @return
  */
-HAL_StatusTypeDef Unitree_init(UnitreeMotor *MotorInstance, UART_HandleTypeDef *usartx)
+HAL_StatusTypeDef Unitree_init(UnitreeMotor *MotorInstance, UART_HandleTypeDef *usartx, int id)
 {
-    MotorInstance->cmd.id   = 0; // 给电机控制指令结构体赋值
+    MotorInstance->cmd.id   = id; // 给电机控制指令结构体赋值
     MotorInstance->cmd.mode = 1;
     MotorInstance->cmd.T    = 0;
     MotorInstance->cmd.W    = 0;
@@ -107,7 +109,11 @@ HAL_StatusTypeDef Unitree_Encoder_Autoclibrating(UnitreeMotor *MotorInstance)
 {
     HAL_StatusTypeDef state_ = HAL_OK;
     state_                   = Unitree_UART_tranANDrev(MotorInstance, MotorInstance->cmd.id, 2, 0, 0, 0, 0, 0);
+#ifdef USE_FREERTOS
+    osDelay(6000);
+#else
     HAL_Delay(6000);
+#endif
     return state_;
 }
 
@@ -117,12 +123,22 @@ HAL_StatusTypeDef Unitree_Encoder_Autoclibrating(UnitreeMotor *MotorInstance)
 void Unitree_User_Init(void)
 {
     unitree_motor_right = Unitree_Create_Motor();
-    Unitree_init(unitree_motor_right, &huart6);
-    osDelay(2000);
+    unitree_motor_left  = Unitree_Create_Motor();
+    Unitree_init(unitree_motor_right, &huart6, 0);
+    osDelay(200);
+    Unitree_init(unitree_motor_left, &huart6, 1);
+    osDelay(200);
+    osDelay(1000);
+    // Unitree_Encoder_Autoclibrating(unitree_motor_right);
+    // osDelay(7000);
     Unitree_UART_tranANDrev(unitree_motor_right, 0, 0, 0, 0, 0, 0, 0);
-    osDelay(2000);
+    osDelay(200);
+    Unitree_UART_tranANDrev(unitree_motor_left, 1, 0, 0, 0, 0, 0, 0);
+    osDelay(200);
     Unitree_UART_tranANDrev(unitree_motor_right, 0, 0, 0, 0, 0, 0, 0);
-    osDelay(2000);
+    osDelay(200);
+    Unitree_UART_tranANDrev(unitree_motor_left, 1, 0, 0, 0, 0, 0, 0);
+    osDelay(200);
     unitree_offset_right = unitree_motor_right->data.Pos;
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_offset_right - _PI - 0.1, 0.17, 0.08);
+    unitree_offset_left = unitree_motor_left->data.Pos;
 }

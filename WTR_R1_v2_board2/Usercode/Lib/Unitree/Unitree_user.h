@@ -20,7 +20,7 @@ extern UnitreeMotor *unitree_motor_right;
 extern float unitree_offset_right;
 /**************************************用户函数定义*********************************************/
 UnitreeMotor *Unitree_Create_Motor();
-HAL_StatusTypeDef Unitree_init(UnitreeMotor *MotorInstance, UART_HandleTypeDef *usartx);
+HAL_StatusTypeDef Unitree_init(UnitreeMotor *MotorInstance, UART_HandleTypeDef *usartx, int id);
 HAL_StatusTypeDef Unitree_UART_tranANDrev(UnitreeMotor *MotorInstance, unsigned char motor_id,
                                           unsigned char mode, float T, float W,
                                           float Pos, float K_P, float K_W);
