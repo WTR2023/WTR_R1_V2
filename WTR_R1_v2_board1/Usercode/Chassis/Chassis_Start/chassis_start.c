@@ -12,7 +12,7 @@ void StartDefaultTask(void *argument)
     Chassis_Init();            // DJI电机初始化
     Chassis_Joytick_Init();    // 遥控器初始化
     Servo_Init();              // 舵机初始化
-    osDelay(3000);             // 等待外设初始化结束
+    osDelay(10000);             // 等待外设初始化结束
     Chassis_Perception_Init(); // 码盘初始化
     /***************************线程开启*************************/
     Chassis_CAN_Message_TaskStart(); // CAN发送线程

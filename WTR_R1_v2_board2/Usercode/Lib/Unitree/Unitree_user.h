@@ -18,6 +18,8 @@ typedef struct {
 
 extern UnitreeMotor *unitree_motor_right;
 extern float unitree_offset_right;
+extern UnitreeMotor *unitree_motor_left;
+extern float unitree_offset_left;
 /**************************************用户函数定义*********************************************/
 UnitreeMotor *Unitree_Create_Motor();
 HAL_StatusTypeDef Unitree_init(UnitreeMotor *MotorInstance, UART_HandleTypeDef *usartx, int id);

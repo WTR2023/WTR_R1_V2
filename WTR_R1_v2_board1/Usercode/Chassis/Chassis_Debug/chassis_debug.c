@@ -21,7 +21,7 @@ void Debug_TaskStart(void)
 void Debug_Task(void *argument)
 {
     for (;;) {
-        printf("%d\r\n", (int)(as69_data.wheel));
+        printf("%d\r\n", (int)(OPS_Data.z_angle));
         osDelay(200);
     }
 }

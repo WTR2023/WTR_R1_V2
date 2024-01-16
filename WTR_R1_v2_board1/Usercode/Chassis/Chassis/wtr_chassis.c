@@ -28,7 +28,7 @@ void Chassis_Init(void)
     hDJI[6].motorType = M3508; // 6号电机，发射左摩擦轮
     hDJI[7].motorType = M3508; // 7号电机，发射右摩擦轮
     DJI_Init();
-    Chassis_PID_Init(&chassis_pid, 0.2, 0.0, 0.1);
+    Chassis_PID_Init(&chassis_pid, 0.4, 0.0, 0.1);
 }
 
 /**
