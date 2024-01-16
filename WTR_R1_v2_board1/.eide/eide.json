@@ -83,10 +83,12 @@
           "Usercode/Chassis/Chassis_Debug",
           "Usercode/Chassis/Chassis_PID",
           "Usercode/Chassis/Chassis_StateMechine",
+          "Usercode/Chassis/Chassis_Gyro",
           "Usercode/Lib/DJI",
           "Usercode/Lib/Joytick",
           "Usercode/Lib/OPS",
-          "Usercode/Lib/Retarget"
+          "Usercode/Lib/Retarget",
+          "Usercode/Lib/Wit"
         ],
         "libList": [],
         "sourceDirList": [],

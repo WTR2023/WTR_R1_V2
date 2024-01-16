@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-#define UART_Printf_Config_huart huart6
+#define UART_Printf_Config_huart huart2
 
 __attribute__((weak)) int _write(int file, uint8_t *ptr, int len)
 {

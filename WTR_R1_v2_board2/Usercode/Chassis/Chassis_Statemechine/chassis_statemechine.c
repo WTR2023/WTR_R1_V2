@@ -404,7 +404,7 @@ void Left_Grip_Seed_Task(void *argument)
                 osDelay(1000);
                 unitree_usart_state = osMutexAcquire(Unitree_usart_mutex, osWaitForever);
                 if (unitree_usart_state == osOK) {
-                    Unitree_UART_tranANDrev(unitree_motor_left, 1`, 1, 0, 0, unitree_offset_left + _PI + 0.1, 0.09, 0.05);
+                    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, unitree_offset_left + _PI + 0.1, 0.09, 0.05);
                 }
                 osMutexRelease(Unitree_usart_mutex);
                 osDelay(2000);

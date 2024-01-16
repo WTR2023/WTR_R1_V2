@@ -3,6 +3,8 @@
 
 #include "chassis_start.h"
 
+extern float mvx, mvy, mwc;
+
 void Chassis_Joytick_Init(void);
 void Chassis_Remotectl_TaskStart(void);
 void Chassis_RemoteCtl_Task(void *argument);

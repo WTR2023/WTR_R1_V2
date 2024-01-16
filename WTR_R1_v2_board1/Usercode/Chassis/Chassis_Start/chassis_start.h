@@ -5,6 +5,7 @@
 #include "stm32f4xx.h"
 #include "cmsis_os.h"
 #include "usart.h"
+#include "tim.h"
 #include "math.h"
 #include <stdio.h>
 /*********************硬件驱动库**********************/
@@ -13,7 +14,9 @@
 #include "wtr_can.h"
 #include "wtr_ops.h"
 #include "wtr_servo.h"
+#include "HWT101CT_sdk.h"
 /*********************底盘控制库**********************/
+#include "chassis_gyro.h"
 #include "chassis_start.h"
 #include "chassis_config.h"
 #include "chassis_remotectl.h"

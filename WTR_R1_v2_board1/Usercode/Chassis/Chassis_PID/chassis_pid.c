@@ -23,7 +23,7 @@ void Chassis_PID_Init(PID *upid, float KP, float KI, float KD)
 }
 
 /**
- * @brief       pid闭环控制
+ * @brief       底盘pid闭环控制（特化后的控制，不通用）
  * @param       *PID：PID结构体变量地址
  * @param       Feedback_value：当前实际值
  * @retval      期望输出值
@@ -31,6 +31,13 @@ void Chassis_PID_Init(PID *upid, float KP, float KI, float KD)
 float Chassis_PID_Calc(PID *upid, float Feedback_value)
 {
     upid->Error = (float)(upid->SetPoint - Feedback_value); /* 计算偏差 */
+
+    if (upid->Error > 180.0f) {
+        upid->Error = 360.0f - upid->Error; /* 偏差修正 */
+    } else if (upid->Error < -180.0f)
+    {
+        upid->Error = 360.f + upid->Error; /* 偏差修正 */
+    }
 
     upid->SumError += upid->Error;
     upid->ActualValue = (upid->Proportion * upid->Error)                        /* 比例环节 */
