@@ -14,9 +14,9 @@
  * 使用：
  *  初始化函数：      HW101_Init();
  *  循环调用：       ProcessData();
- *  数据将会出现在 本文件的 gyrodata[3] 变量，
+ *  数据将会出现在 本文件的 gyrodata[3] 数组，
  *      gyrodata[0]、gyrodata[1]为角加速度 y,z 轴
- *      gyrodata[1]            为角度     z 轴
+ *      gyrodata[2]             为角度    z 轴
  * @copyright Copyright (c) 2024
  *
  */

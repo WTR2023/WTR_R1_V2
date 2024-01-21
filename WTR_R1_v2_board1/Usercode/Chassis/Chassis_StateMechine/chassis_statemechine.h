@@ -9,9 +9,10 @@
 /******************************类型定义**********************************/
 
 enum Fire_State {
-    Fire_Ready, // 发射准备状态
-    Fire_Pick,  // 取球状态
-    Fire_Shoot  // 射球状态
+    Fire_Ready,       // 射球默认状态
+    Fire_ReadytoPick, // 取球准备状态
+    Fire_ReadytoFire, // 射球准备状态
+    Fire_Progress     // 射球状态
 };
 
 enum Chassis_State {

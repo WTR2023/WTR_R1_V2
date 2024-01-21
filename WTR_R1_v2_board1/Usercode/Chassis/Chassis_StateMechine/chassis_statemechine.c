@@ -18,8 +18,8 @@ const osThreadAttr_t Fire_Ball_Task_attributes = {
 enum Chassis_State chassis_mode; // 底盘总控制线程
 enum Fire_State fire_state;
 
-int arm_angle  = 0;
-int rail_angle = 0;
+int arm_angle      = 0;
+int rail_angle     = 0;
 int friction_speed = 0;
 
 /***********************************************************/
@@ -50,8 +50,7 @@ void Chassis_State_mechine_Task(void *argument)
 {
     for (;;) {
         if (chassis_mode == Seed_Mode) {
-            while(fire_state != Fire_Ready)
-            {
+            while (fire_state != Fire_Ready) {
                 osDelay(1);
             }
             friction_speed = 0;
@@ -65,58 +64,91 @@ void Chassis_State_mechine_Task(void *argument)
 }
 
 /**
- * @brief   射球状态机
+ * @brief       射球状态机
+ * @attention   现在为手动射球，后续考虑加入十二键值进行半自动射球
  */
 void Fire_Ball_Task(void *argument)
 {
     for (;;) {
         switch (fire_state) {
-            case Fire_Ready: // 1. 发球准备状态
-                arm_angle  = 5;
-                rail_angle = 0;
-                Servo_Reset();
-                Servo_Out();
-                osDelay(500);
+            case Fire_Ready: // 射球默认状态
+                // 状态机状态动作
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_2, GPIO_PIN_SET);
+                Servo_Grip();
+                Servo_In();
+                arm_angle  = 180;
+                rail_angle = 2;
+                while (((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) > 2.0f) ||
+                       ((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) < -2.0f) ||
+                       ((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) < -2.0f) ||
+                       ((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) > 2.0f)) {
+                    osDelay(1);
+                }
+                // 状态机状态转换
                 switch (as69_data.left) {
-                    case 3:
-                        fire_state = Fire_Ready;
+                    case 1:
+                        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_2, GPIO_PIN_RESET);
+                        fire_state = Fire_ReadytoPick;
                         break;
                     case 2:
                         fire_state = Fire_Ready;
                         break;
-                    case 1:
-                        fire_state = Fire_Pick;
+                    case 3:
+                        fire_state = Fire_Ready;
                         break;
                     default:
+                        fire_state = Fire_Ready;
                         break;
                 }
                 break;
-            case Fire_Pick: // 2. 取球状态
+            case Fire_ReadytoPick: // 准备捡球状态
+                // 状态机状态动作
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_3, GPIO_PIN_SET);
+                Servo_Out();
+                Servo_Reset();
+                arm_angle = 5;
+                while (((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) > 2.0f) ||
+                       ((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) < -2.0f)) {
+                    osDelay(1);
+                }
+                // 状态机状态转换
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_3, GPIO_PIN_RESET);
+                fire_state = Fire_ReadytoFire;
+                break;
+            case Fire_ReadytoFire: // 准备射球状态
+                // 状态机状态动作
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_4, GPIO_PIN_SET);
                 Servo_Grip();
-                osDelay(1000);
+                osDelay(500);
                 Servo_In();
                 arm_angle = 180;
-                while (hDJI[4].AxisData.AxisAngle_inDegree < 178.0f) {
+                while (((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) > 2.0f) ||
+                       ((hDJI[4].AxisData.AxisAngle_inDegree - arm_angle) < -2.0f)) {
                     osDelay(1);
                 }
-                fire_state = Fire_Shoot;
+                // 状态机状态转换
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_4, GPIO_PIN_RESET);
+                fire_state = Fire_Progress;
                 break;
-            case Fire_Shoot: // 3. 发射状态
+            case Fire_Progress:
+                // 状态机状态动作
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_SET);
+                osDelay(500);
                 Servo_Reset();
-                osDelay(2000);
+                osDelay(500);
                 rail_angle = -630;
-                arm_angle  = 5;
-                Servo_Out();
-                while (hDJI[5].AxisData.AxisAngle_inDegree > -628.0f) {
+                while (((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) > 2.0f) ||
+                       ((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) < -2.0f)) {
                     osDelay(1);
                 }
-                rail_angle = -2;
-                while (hDJI[5].AxisData.AxisAngle_inDegree < -3.0f || hDJI[4].AxisData.AxisAngle_inDegree > 7.0f) {
+                rail_angle = 2;
+                while (((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) > 2.0f) ||
+                       ((hDJI[5].AxisData.AxisAngle_inDegree - rail_angle) < -2.0f)) {
                     osDelay(1);
                 }
+                // 状态机状态转换
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_RESET);
                 fire_state = Fire_Ready;
-                break;
-            default:
                 break;
         }
         osDelay(1);

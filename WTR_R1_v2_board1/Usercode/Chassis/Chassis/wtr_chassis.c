@@ -28,7 +28,7 @@ void Chassis_Init(void)
     hDJI[6].motorType = M3508; // 6号电机，发射左摩擦轮
     hDJI[7].motorType = M3508; // 7号电机，发射右摩擦轮
     DJI_Init();
-    Chassis_PID_Init(&chassis_pid, 0.4, 0.0, 0.1);
+    Chassis_PID_Init(&chassis_pid, 0.8, 0.0, 0.2);
 }
 
 /**
@@ -54,7 +54,7 @@ void CAN_Message_Task(void *argument)
         speedServo(friction_speed, &hDJI[6]);
         speedServo(- friction_speed, &hDJI[7]);
         CanTransmit_DJI_1234(hDJI[0].speedPID.output, hDJI[1].speedPID.output, hDJI[2].speedPID.output, hDJI[3].speedPID.output);
-        CanTransmit_DJI_5678(hDJI[4].speedPID.output, hDJI[5].speedPID.output, hDJI[6].speedPID.output, hDJI[7].speedPID.output);
+        CanTransmit_DJI_5678(hDJI[4].speedPID.output, hDJI[5].speedPID.output, 0, 0);
         osDelay(5);
     }
 }
