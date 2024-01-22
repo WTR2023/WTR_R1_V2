@@ -16,9 +16,10 @@ void StartDefaultTask(void *argument)
     Unitree_User_Init(); // Unitree电机初始化
     osDelay(5000);
     /***************************线程开启*************************/
-    Debug_TaskStart();               // 调试线程
-    Chassis_CAN_Message_TaskStart(); // CAN消息发送线程
-    Chassis_State_Mechine_Start();   // 状态机线程
+    Chassis_Unitree_UART_Message_TaskStart(); // 宇树电机串口发送线程
+    Debug_TaskStart();                        // 调试线程
+    Chassis_CAN_Message_TaskStart();          // CAN消息发送线程
+    Chassis_State_Mechine_Start();            // 状态机线程
     for (;;) {
         osDelay(1000);
     }

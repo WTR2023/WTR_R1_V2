@@ -5,14 +5,8 @@
  */
 void Unitree_Grip_Ready(void)
 {
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI - 0.6), 0.08, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI + 0.5), 0.08, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI - 0.6), 0.08, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI + 0.5), 0.08, 0.06);
-    osDelay(100);
+    unitree_move_smooth(0, unitree_offset_right - _PI - 0.5, 0.35, 0.1);
+    unitree_move_smooth(1, unitree_offset_left + _PI + 0.5, 0.35, 0.1);
 }
 
 /**
@@ -20,14 +14,8 @@ void Unitree_Grip_Ready(void)
  */
 void Unitree_Grip(void)
 {
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI + 0.08), 0.15, 0.03);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI - 0.08), 0.15, 0.03);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI + 0.08), 0.15, 0.03);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI - 0.08), 0.15, 0.03);
-    osDelay(100);
+    unitree_move_smooth(0, unitree_offset_right - _PI + 0.1, 0.35, 0.1);
+    unitree_move_smooth(1, unitree_offset_left + _PI - 0.1, 0.35, 0.1);
 }
 
 /**
@@ -35,14 +23,8 @@ void Unitree_Grip(void)
  */
 void Unitree_Grip_toDeposit(void)
 {
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.3), 0.09, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left - 0.3), 0.09, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right + 0.3), 0.09, 0.06);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left - 0.3), 0.09, 0.06);
-    osDelay(100);
+    unitree_move_smooth(0, unitree_offset_right, 0.35, 0.1);
+    unitree_move_smooth(1, unitree_offset_left, 0.35, 0.1);
 }
 
 /**
@@ -50,12 +32,6 @@ void Unitree_Grip_toDeposit(void)
  */
 void Unitree_Grip_Default(void)
 {
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI / 6 - 0.5), 0.09, 0.05);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI / 6 + 0.5), 0.09, 0.05);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, (unitree_offset_right - _PI / 6 - 0.5), 0.09, 0.05);
-    osDelay(100);
-    Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, (unitree_offset_left + _PI / 6 + 0.5), 0.09, 0.05);
-    osDelay(100);
+    unitree_move_smooth(0, unitree_offset_right - _PI / 3, 0.35, 0.1);
+    unitree_move_smooth(1, unitree_offset_left + _PI / 3, 0.35, 0.1);
 }

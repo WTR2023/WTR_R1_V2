@@ -7,6 +7,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include "chassis_start.h"
 #include "motor_control.h"
 #include "usart.h"
 /**************************************变量类型定义*********************************************/

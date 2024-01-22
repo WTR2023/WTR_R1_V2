@@ -27,6 +27,15 @@ extern int land_angle;
 extern int right_deposit_angle;
 extern int left_deposit_angle;
 
+extern float unitree_motor_left_pos;
+extern float unitree_motor_left_kp;
+extern float unitree_motor_left_kw;
+extern float unitree_motor_right_pos;
+extern float unitree_motor_right_kp;
+extern float unitree_motor_right_kw;
+
+void unitree_move_smooth(int id, float move_angle, float KP, float KW);
+
 void Chassis_State_Mechine_Start(void);
 
 void Grip_Seed_Task(void *argument);

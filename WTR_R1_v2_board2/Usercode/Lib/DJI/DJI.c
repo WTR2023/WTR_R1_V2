@@ -14,7 +14,7 @@ void DJI_Init()
 {
     for (int i = 0; i < 8; i++) {
         // 速度环PID
-        hDJI[i].speedPID.KP        = 12;
+        hDJI[i].speedPID.KP        = 14;
         hDJI[i].speedPID.KI        = 0.2;
         hDJI[i].speedPID.KD        = 5;
         hDJI[i].speedPID.outputMax = 8000;

@@ -117,6 +117,8 @@ HAL_StatusTypeDef Unitree_Encoder_Autoclibrating(UnitreeMotor *MotorInstance)
     return state_;
 }
 
+/***********************************************************************************************/
+
 /**
  * @brief   Unitree 初始化位置确定
  */
@@ -141,4 +143,6 @@ void Unitree_User_Init(void)
     osDelay(200);
     unitree_offset_right = unitree_motor_right->data.Pos;
     unitree_offset_left  = unitree_motor_left->data.Pos;
+    unitree_motor_left_pos = unitree_offset_left;
+    unitree_motor_right_pos = unitree_offset_right;
 }

@@ -5,9 +5,17 @@ osThreadId_t can_message_TaskHandle;
 const osThreadAttr_t can_message_Task_attributes = {
     .name       = "can_message_Task",
     .stack_size = 128 * 4,
-    .priority   = (osPriority_t)osPriorityNormal1,
+    .priority   = (osPriority_t)osPriorityNormal,
+};
+
+osThreadId_t unitree_uart_message_TaskHandle;
+const osThreadAttr_t unitree_uart_message_Task_attributes = {
+    .name       = "unitree_uart_message_Task",
+    .stack_size = 128 * 4,
+    .priority   = (osPriority_t)osPriorityNormal,
 };
 /************************************************************************/
+
 /**
  * @brief   底盘初始化
  */
@@ -32,6 +40,14 @@ void Chassis_CAN_Message_TaskStart(void)
 }
 
 /**
+ * @brief   底盘电机CAN消息发送线程创建
+ */
+void Chassis_Unitree_UART_Message_TaskStart(void)
+{
+    unitree_uart_message_TaskHandle = osThreadNew(Unitree_UART_Message_Task, NULL, &can_message_Task_attributes);
+}
+
+/**
  * @brief   底盘电机CAN消息发送线程
  */
 void CAN_Message_Task(void *argument)
@@ -43,5 +59,18 @@ void CAN_Message_Task(void *argument)
         positionServo(left_deposit_angle, &hDJI[3]);
         CanTransmit_DJI_1234(hDJI[0].speedPID.output, hDJI[1].speedPID.output, hDJI[2].speedPID.output, hDJI[3].speedPID.output);
         osDelay(5);
+    }
+}
+
+/**
+ * @brief   底盘Unitree电机UART消息发送线程
+ */
+void Unitree_UART_Message_Task(void *argument)
+{
+    for (;;) {
+        Unitree_UART_tranANDrev(unitree_motor_right, 0, 1, 0, 0, unitree_motor_right_pos, unitree_motor_right_kp, unitree_motor_right_kw);
+        osDelay(2);
+        Unitree_UART_tranANDrev(unitree_motor_left, 1, 1, 0, 0, unitree_motor_left_pos, unitree_motor_left_kp, unitree_motor_left_kw);
+        osDelay(2);
     }
 }
