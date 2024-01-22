@@ -33,17 +33,12 @@
 #define Left_Baffle_Servo_Timer_Channel        TIM_CHANNEL_2
 
 void Servo_Init(void);
-void Right_Servo_Open(void);
-void Right_Servo_Grip(void);
-void Right_Servo_Buffle_Open(void);
-void Right_Servo_Buffle_Close(void);
-void Right_Servo_Deposit_Open(void);
-void Right_Servo_Deposit_Close(void);
-void Left_Servo_Open(void);
-void Left_Servo_Grip(void);
-void Left_Servo_Buffle_Open(void);
-void Left_Servo_Buffle_Close(void);
-void Left_Servo_Deposit_Open(void);
-void Left_Servo_Deposit_Close(void);
+void Servo_Open(void);
+void Servo_Grip(void);
+void Servo_Buffle_Open(void);
+void Servo_Buffle_Close(void);
+void Servo_Deposit_Open(void);
+void Servo_Deposit_Close(void);
+
 
 #endif

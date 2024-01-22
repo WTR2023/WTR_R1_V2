@@ -72,6 +72,7 @@
           "Drivers/CMSIS/Device/ST/STM32F4xx/Include",
           "Drivers/CMSIS/Include",
           "Usercode/App/Servo",
+          "Usercode/App/Unitree",
           "Usercode/Lib/DJI",
           "Usercode/Lib/Retarget",
           "Usercode/Lib/Unitree",

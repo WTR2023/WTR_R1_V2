@@ -20,5 +20,6 @@
 #include "chassis_start.h"
 /*******************状态机和应用***********************/
 #include "chassis_statemechine.h"
+#include "unitree_app.h"
 
 #endif 

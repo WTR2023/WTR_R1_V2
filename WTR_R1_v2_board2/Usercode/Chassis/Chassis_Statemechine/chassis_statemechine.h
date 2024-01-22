@@ -4,9 +4,10 @@
 #include "chassis.h"
 
 enum Grip_Seed_State {
-    Grip_Ready,
-    Grip,
-    Grip_Deposit,
+    Grip_Ready,     // 准备取苗状态，两臂内收并张开夹爪
+    Grip_Progress,  // 取苗状态，两臂竖直，收紧夹爪并抬升
+    Grip_toDeposit, // 运送至存储区状态，两臂收回
+    Grip_Defalut,   // 射球时的默认状态
 };
 
 enum Plant_Seed_State {
@@ -20,19 +21,14 @@ enum Chassis_State {
     Ball_Mode,
 };
 
-extern int right_land_angle;
-extern int right_deposit_angle;
-extern int left_land_angle;
-extern int left_deposit_angle;
 extern enum Chassis_State chassis_mode;
+extern int seed_count;
+extern int land_angle;
+extern int right_deposit_angle;
+extern int left_deposit_angle;
 
-void Grip_Seed_Task_Start(void);
 void Chassis_State_Mechine_Start(void);
 
-void Chassis_State_mechine_Task(void *argument);
-void Right_Grip_Seed_Task(void *argument);
-void Right_Plant_Seed_Task(void *argument);
-void Left_Grip_Seed_Task(void *argument);
-void Left_Plant_Seed_Task(void *argument);
+void Grip_Seed_Task(void *argument);
 
 #endif
