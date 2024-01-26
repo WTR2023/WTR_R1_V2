@@ -41,6 +41,7 @@ extern "C" {
 #if (STM32F427xx) // 如果使用STM32F4系列
 
 #include "stm32f4xx.h"
+#include "can.h"
 
 /***********************数据类型定义**********************/
 
@@ -71,7 +72,8 @@ typedef struct FDCAN_HANDLER {
 } CAN_HANDLER;
 
 /************************变量定义***********************/
-
+extern CAN_TxHeaderTypeDef hcan1_tx; // CAN1 发送处理单元句柄
+extern CAN_RxHeaderTypeDef hcan1_rx; // CAN1 接受处理单元句柄
 extern CAN_HANDLER can1;
 extern uint8_t can1_rxdata[8];
 

@@ -1,5 +1,6 @@
 #include "DJI.h"
 #include "wtr_can.h"
+#include "string.h"
 
 #define LAST 0
 #define NOW  1
@@ -149,6 +150,27 @@ void CanTransmit_DJI_5678(int16_t cm5_iq, int16_t cm6_iq, int16_t cm7_iq, int16_
     umsg.buffer[7] = (uint8_t)cm8_iq;
 
     can1.CAN_Send_MSG(&umsg);
+}
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+    if (hcan->Instance == hcan1.Instance) {
+        if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcan1_rx, can1_rxdata) != HAL_OK) {
+            Error_Handler();
+        }
+        memcpy((uint8_t *)can1.rx_MSG.buffer, can1_rxdata, 8); // 保存CAN报文的内容
+        can1.rx_MSG.id  = hcan1_rx.StdId;                      // 保存CAN报文的ID
+        can1.rx_MSG.len = hcan1_rx.DLC;                        // 保存CAN报文的内容长度
+        /* Can message Decode */
+        if (hcan1_rx.IDE == CAN_ID_STD) {
+            DJI_CanMsgDecode(can1.rx_MSG.id, (uint8_t *)can1.rx_MSG.buffer);
+        }
+        if (hcan1_rx.IDE == CAN_ID_EXT) {
+            // vesc反馈关掉这里就不会有消息
+            ;
+            ;
+        }
+    }
 }
 
 #endif

@@ -1,7 +1,5 @@
 #if (STM32F427xx)
 #include "wtr_can.h"
-#include "can.h"
-#include "string.h"
 
 uint8_t can1_rxdata[8] = {0};
 extern CAN_HandleTypeDef hcan1;
@@ -118,25 +116,9 @@ uint8_t CAN1_Send_Msg(CAN_MSG *msg)
 /**
  * @brief CAN RX0接收中断回调函数
  */
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+__weak void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
-    if (hcan->Instance == hcan1.Instance) {
-        if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcan1_rx, can1_rxdata) != HAL_OK) {
-            Error_Handler();
-        }
-        memcpy((uint8_t *)can1.rx_MSG.buffer, can1_rxdata, 8); // 保存CAN报文的内容
-        can1.rx_MSG.id  = hcan1_rx.StdId;                      // 保存CAN报文的ID
-        can1.rx_MSG.len = hcan1_rx.DLC;                        // 保存CAN报文的内容长度
-        /* Can message Decode */
-        if (hcan1_rx.IDE == CAN_ID_STD) {
-            DJI_CanMsgDecode(can1.rx_MSG.id, (uint8_t *)can1.rx_MSG.buffer);
-        }
-        if (hcan1_rx.IDE == CAN_ID_EXT) {
-            // vesc反馈关掉这里就不会有消息
-            ;
-            ;
-        }
-    }
+    ;
 }
 #endif
 #if (STM32H723xx)
