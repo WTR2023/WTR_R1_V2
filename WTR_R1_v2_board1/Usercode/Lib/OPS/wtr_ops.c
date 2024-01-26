@@ -4,6 +4,78 @@
 OPS_t OPS_Data = {0};
 uint8_t ops_buffer[28]; // 接收缓冲区
 
+/****************************************************************/
+/**
+ * @brief   字符串拼接函数
+ */
+static void Stract(char strDestination[], char strSource[], int num)
+{
+    int i = 0, j = 0;
+    while (strDestination[i] != '\0') {
+        i++;
+    }
+    for (j = 0; j < num; j++) {
+        strDestination[i++] = strSource[j];
+    }
+}
+
+/**
+ * @brief   x坐标更新函数
+ * @param   x   新的坐标值
+ */
+void OPS_Update_X(float x)
+{
+    int i            = 0;
+    char update_x[8] = "ACTX";
+    static union {
+        float x;
+        char data[4];
+    } new_set;
+    new_set.x = x;
+    Stract(update_x, new_set.data, 4);
+    for (i = 0; i < 8; i++) {
+        HAL_UART_Transmit(&OPS_UART_HANDLE, update_x, 8, 0xFF);
+    }
+}
+
+/**
+ * @brief   y坐标更新函数
+ * @param   y   新的坐标值
+ */
+void OPS_Update_Y(float y)
+{
+    int i            = 0;
+    char update_y[8] = "ACTY";
+    static union {
+        float y;
+        char data[4];
+    } new_set;
+    new_set.y = y;
+    Stract(update_y, new_set.data, 4);
+    for (i = 0; i < 8; i++) {
+        HAL_UART_Transmit(&OPS_UART_HANDLE, update_y, 8, 0xFF);
+    }
+}
+
+/**
+ * @brief   航向角更新函数
+ * @param   angle   新的航向角值
+ */
+void OPS_Update_A(float angle)
+{
+    int i            = 0;
+    char update_a[8] = "ACTJ";
+    static union {
+        float angle;
+        char data[4];
+    } new_set;
+    new_set.angle = angle;
+    Stract(update_a, new_set.data, 4);
+    for (i = 0; i < 8; i++) {
+        HAL_UART_Transmit(&OPS_UART_HANDLE, update_a, 8, 0xFF);
+    }
+}
+
 /**
  * @brief   码盘解码函数
  */
@@ -29,6 +101,15 @@ uint8_t OPS_Decode(void)
     OPS_Data.pos_y   = posture.ActVal[4];
     OPS_Data.w_z     = posture.ActVal[5];
     return 0;
+}
+
+/**
+ * @brief   码盘初始化函数
+ */
+void OPS_Init(void)
+{
+    HAL_UART_Receive_DMA(&OPS_UART_HANDLE, ops_buffer, 28);
+    __HAL_UART_ENABLE_IT(&OPS_UART_HANDLE, UART_IT_IDLE);
 }
 
 /**

@@ -111,6 +111,7 @@ void CanTransmit_DJI_1234(int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_
 
     umsg.id  = 0x200;
     umsg.len = 0x08;
+    umsg.ide = CAN_ID_STD;
     umsg.rtr = DATA_FRAME;
 
     umsg.buffer[0] = (uint8_t)(cm1_iq >> 8);
@@ -135,6 +136,7 @@ void CanTransmit_DJI_5678(int16_t cm5_iq, int16_t cm6_iq, int16_t cm7_iq, int16_
 
     umsg.len = 0x08;
     umsg.id  = 0x1FF;
+    umsg.ide = CAN_ID_STD;
     umsg.rtr = DATA_FRAME;
 
     umsg.buffer[0] = (uint8_t)(cm5_iq >> 8);

@@ -2,6 +2,11 @@
  * @brief   OPS定位系统解码
  * @author  SSC
  * @note    注意，OPS需要使用RS232转TTL模块且在TTL端使用TX--TX RX--RX接线方法
+ *          使能对应串口的DMA RX通道，不必开全局中断
+ *          调用OPS_Init()函数进行初始化，然后再DMA空闲中断中进行解码
+ *          开机后保持15s静止时间；
+ *          码盘陀螺仪会产生零点漂移，建议在上坡后使用激光辅助清零。
+ *          代码提供了OPS_Data作为数据接口
  */
 #ifndef __WTR_OPS_H
 #define __WTR_OPS_H
@@ -12,7 +17,7 @@
 #define OPS_UART_HANDLE huart8 // 串口选项
 #define OPS_UART        UART8  // 串口选项
 
-/************************ 结构体定义 ***************************/
+/************************ 结构体定义 *************************/
 
 typedef struct OPS_t {
     float pos_x;   // x坐标
@@ -26,6 +31,11 @@ typedef struct OPS_t {
 extern OPS_t OPS_Data;
 extern uint8_t ops_buffer[28];
 
+/************************ 用户函数 *************************/
+void OPS_Init(void);
 uint8_t OPS_Decode(void);
+void OPS_Update_X(float x);
+void OPS_Update_Y(float y);
+void OPS_Update_A(float angle);
 
 #endif
