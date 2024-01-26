@@ -37,7 +37,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "DJI.h"
 
 #if (STM32F427xx) // 如果使用STM32F4系列
 

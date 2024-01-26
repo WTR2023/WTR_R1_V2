@@ -2,7 +2,6 @@
 #include "wtr_can.h"
 #include "can.h"
 #include "string.h"
-#include "DJI.h"
 
 uint8_t can1_rxdata[8] = {0};
 extern CAN_HandleTypeDef hcan1;
