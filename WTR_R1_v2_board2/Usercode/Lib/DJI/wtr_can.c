@@ -102,8 +102,13 @@ uint8_t CAN1_Send_Msg(CAN_MSG *msg)
     else
         hcan1_tx.RTR = CAN_RTR_DATA; // 数据帧
 
-    hcan1_tx.StdId = msg->id;
-    hcan1_tx.IDE   = CAN_ID_STD;
+    hcan1_tx.IDE = msg->ide;
+    if (msg->ide == CAN_ID_STD) {
+        hcan1_tx.StdId = msg->id;
+    } else if (msg->ide == CAN_ID_EXT) {
+        hcan1_tx.StdId = 0x00;
+        hcan1_tx.ExtId = msg->id;
+    }
 
     while (HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0) {
         ;

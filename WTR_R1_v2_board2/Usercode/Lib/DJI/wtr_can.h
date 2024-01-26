@@ -54,6 +54,7 @@ typedef enum {
 // 接收消息结构体定义
 typedef struct {
     __IO uint16_t id;       // CANID
+    __IO uint16_t ide;      // 数据帧类型
     CAN_FRAME_TYPE rtr;     // 远程帧，数据帧
     __IO uint8_t len;       // CAN报文长度
     __IO uint8_t buffer[8]; // CAN报文内容
